@@ -25,11 +25,7 @@ options("width"=200)
 
 # Functions
 
-
-
 # transpose a df and fix the rownames and colnames
-
-
 transpose_df<-function(df){
   df<-as.data.frame(df)
   df_names <-  df[,1]
@@ -39,14 +35,15 @@ transpose_df<-function(df){
   return(df.T)
 }
 
-
-transpose_df_Col1<-function(df){
+# transpose a df and fix the rownames and colnames. Add the rownames as the first column. Name first col is given by second function arg
+transpose_df_Col1<-function(df, Col1_name){
   df<-as.data.frame(df)
   df_names <-  df[,1]
   df.T <- as.data.frame(as.matrix(t(df[,-1])))
   colnames(df.T) <- df_names
   df.T$Col1<-rownames(df.T)
   df.T%<>%relocate(Col1)
+  names(df.T)[1]<-Col1_name
   
   return(df.T)
 }
