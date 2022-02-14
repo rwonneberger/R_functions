@@ -40,6 +40,17 @@ transpose_df<-function(df){
 }
 
 
+transpose_df_Col1<-function(df){
+  df<-as.data.frame(df)
+  df_names <-  df[,1]
+  df.T <- as.data.frame(as.matrix(t(df[,-1])))
+  colnames(df.T) <- df_names
+  df.T$Col1<-rownames(df.T)
+  df.T%<>%relocate(Col1)
+  
+  return(df.T)
+}
+
 
 # Round all numeric columns in a dataframe
 round_df <- function(df, digits_to_keep) {
