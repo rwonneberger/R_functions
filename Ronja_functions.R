@@ -17,7 +17,7 @@ library(stringr)
 library(gplots)
 library(reshape2)
 library(magrittr)
-library(psych)
+#library(psych)
 library(ggpubr)
 
 options("width"=200)
