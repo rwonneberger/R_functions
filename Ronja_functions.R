@@ -57,6 +57,35 @@ round_df <- function(df, digits_to_keep) {
 }
 
 
+#Look at the first few rows and cols of a df/dt
+peek<-function(df, x=10, y=10){
+  df[1:x, 1:y]
+  }
+
+
+#Look at the last few rows and cols of a df/dt
+peekend<-function(df, x=10, y=10){
+  df[(nrow(df)-x):nrow(df), (ncol(df)-x):ncol(df)]
+  }
+
+
+
+# Custom Manhattan plot function with facet_grid
+Man<-function(df, x, y, chr, trait = NULL){
+  arguments<-as.list(match.call())
+  x = eval(arguments$x, df)
+  y = eval(arguments$y, df)
+  chr = eval(arguments$chr, df)
+  if(missing(trait)) {
+  df1<-data.frame(Pos = x/1000000, logp = -log10( y), chrom = chr)
+  ggplot(df1, aes(x=Pos, y=logp)) + theme_bw() + geom_point() +  labs(x="Position (Mbp)",y="-log10(pval)") +   theme(legend.position = "none") + theme(axis.text.x =element_text(angle = 90)) + facet_grid(~chrom, scales="free_x", space = "free_x")
+  } else {
+    Trait = eval(arguments$trait, df)
+    df1<-data.frame(Pos = x/1000000, logp = -log10( y), chrom = chr, Trait=Trait)
+    ggplot(df1, aes(x=Pos, y=logp)) + theme_bw() + geom_point() +  labs(x="Position (Mbp)",y="-log10(pval)") +   theme(legend.position = "none") + theme(axis.text.x =element_text(angle = 90)) + facet_grid(Trait~chrom, scales="free_x", space = "free_x")
+  }
+}
+
 
 
 # Reformat the per location heritability file from the META-R package to a useable format
