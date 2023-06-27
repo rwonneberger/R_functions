@@ -16,6 +16,10 @@ library(stringr)
 library(gplots)
 library(reshape2)
 library(magrittr)
+library(tidyr)
+library(readr)
+library(purrr)
+library(forcats)
 
 library(ggpubr)
 
