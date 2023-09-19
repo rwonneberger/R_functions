@@ -76,7 +76,7 @@ cor.mtest.selected <- function(df, last_metab, method, ...) {
   p.mat<- matrix(NA, nrows, ncols)
   for (i in 1:last_metab) {
     for (j in 1:ncols) {
-      tmp <- cor.test(mat[, i], mat[, i+j], method = method, ...)
+      tmp <- cor.test(mat[, i], mat[, last_metab+j], method = method, ...)
       p.mat[i, j] <-  tmp$p.value
     }
   }
