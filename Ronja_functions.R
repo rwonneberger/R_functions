@@ -51,6 +51,42 @@ transpose_df_Col1<-function(df, Col1_name){
   return(df.T)
 }
 
+# Calculate pvals (http://www.sthda.com/english/wiki/visualize-correlation-matrix-using-correlogram)
+# Function for all-by-all calculation of cor
+cor.mtest.all <- function(mat, method, ...) {
+  mat <- as.matrix(mat)
+  n <- ncol(mat)
+  p.mat<- matrix(NA, n, n)
+  diag(p.mat) <- 0
+  for (i in 1:(n - 1)) {
+    for (j in (i + 1):n) {
+      tmp <- cor.test(mat[, i], mat[, j], method = method, ...)
+      p.mat[i, j] <- p.mat[j, i] <- tmp$p.value
+    }
+  }
+  colnames(p.mat) <- rownames(p.mat) <- colnames(mat)
+  p.mat
+}
+
+# Function for calculation of cor of only certain columns: The first ones are metabolites, the last ones are the phenotypes
+cor.mtest.selected <- function(df, last_metab, method, ...) {
+  mat <- as.matrix(df)
+  nrows <- last_metab
+  ncols <- ncol(df)-last_metab
+  p.mat<- matrix(NA, nrows, ncols)
+  for (i in 1:last_metab) {
+    for (j in 1:ncols) {
+      tmp <- cor.test(mat[, i], mat[, i+j], method = method, ...)
+      p.mat[i, j] <-  tmp$p.value
+    }
+  }
+  colnames(p.mat) <- colnames(df)[(last_metab+1):ncol(df)] 
+  rownames(p.mat) <- colnames(df)[1:last_metab]
+  p.mat
+}
+
+
+
 
 # Round all numeric columns in a dataframe
 round_df <- function(df, digits_to_keep) {
