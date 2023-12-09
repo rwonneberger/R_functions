@@ -152,7 +152,16 @@ format_metar_heri_acrossloc <- function(df) {
 }
 
 
+# Some shortcuts to add to ggplots
+remove_x_axis <- list(theme(axis.title.x=element_blank(), axis.text.x=element_blank(), axis.ticks.x=element_blank()))
 
+remove_y_axis <- list(theme(axis.title.y=element_blank(), axis.text.y=element_blank(), axis.ticks.y=element_blank()))
+
+x_axis_90_degrees <- list(theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
+  
+# The chromosome column must be called 'chrom'
+manhattan_style <- list(theme_bw() + geom_point() +  labs(x="Position (Mbp)",y="-log10(pval)") +   theme(legend.position = "none") + theme(axis.text.x =element_text(angle = 90)) + facet_grid(~chrom, scales="free_x", space = "free_x"))
+  
 
 
 
