@@ -160,7 +160,7 @@ remove_y_axis <- list(theme(axis.title.y=element_blank(), axis.text.y=element_bl
 x_axis_90_degrees <- list(theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)))
   
 # The chromosome column must be called 'chrom'
-#manhattan_style <- list(+geom_point() + theme_bw() + labs(x="Position (Mbp)",y="-log10(pval)") +   theme(legend.position = "none") + theme(axis.text.x =element_text(angle = 90)) + facet_grid(~chrom, scales="free_x", space = "free_x"))
+#manhattan_style <- list(geom_point() + theme_bw() + labs(x="Position (Mbp)",y="-log10(pval)") +   theme(legend.position = "none") + theme(axis.text.x =element_text(angle = 90)) + facet_grid(~chrom, scales="free_x", space = "free_x"))
   
 
 
